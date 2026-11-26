@@ -1,0 +1,24 @@
+# Dependências e builds (recriados por npm install / cargo build)
+node_modules/
+dist/
+src-tauri/target/
+src-tauri/gen/
+
+# Logs e arquivos temporários
+*.log
+npm-debug.log*
+*.5mtools-tmp
+*.5mtools-case
+
+# Editor e sistema
+.vscode/*
+!.vscode/extensions.json
+.idea/
+.DS_Store
+Thumbs.db
+desktop.ini
+
+# Locais / segredos
+.env
+.env.*
+.claude/settings.local.json

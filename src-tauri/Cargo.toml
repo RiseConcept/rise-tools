@@ -1,0 +1,45 @@
+[package]
+name = "neast-5mtools"
+version = "1.0.0"
+description = "RISE Tools: ferramentas para FiveM"
+authors = ["RiseConcept"]
+edition = "2024"
+
+# See more keys and their definitions at https://doc.rust-lang.org/cargo/reference/manifest.html
+
+[lib]
+# The `_lib` suffix may seem redundant but it is necessary
+# to make the lib name unique and wouldn't conflict with the bin name.
+# This seems to be only an issue on Windows, see https://github.com/rust-lang/cargo/issues/8519
+name = "neast_5mtools_lib"
+crate-type = ["staticlib", "cdylib", "rlib"]
+
+[build-dependencies]
+tauri-build = { version = "2", features = [] }
+
+[dependencies]
+tauri = { version = "2", features = [] }
+tauri-plugin-opener = "2"
+serde = { version = "1", features = ["derive"] }
+serde_json = "1"
+tauri-plugin-dialog = "2"
+flate2 = "1"
+rayon = "1.12.0"
+texpresso = { version = "2.0.2", features = ["rayon"] }
+
+
+# Read the optimization guideline for more details: https://tauri.app/concept/size/#cargo-configuration
+[profile.release]
+codegen-units = 1
+lto = true
+opt-level = 3
+# sem panic = "abort": o núcleo isola falhas de cada módulo com catch_unwind
+strip = true
+
+# Em `tauri dev` as bibliotecas (compressão de textura, deflate) rodam otimizadas;
+# sem isso o Asset Optimizer fica dezenas de vezes mais lento no modo de desenvolvimento.
+[profile.dev]
+opt-level = 1
+
+[profile.dev.package."*"]
+opt-level = 3

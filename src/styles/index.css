@@ -1,0 +1,148 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* Tokens do STYLE-NPV §2.1. A família do tema (main*) é sobrescrita por applyTheme(). */
+:root {
+  --main: 65 229 255;
+  --mainText: 5 6 8;
+  --mainLight: 113 235 255;
+  --mainHover: 52 183 204;
+  --mainDeep: 39 137 153;
+
+  --paper: 255 255 255;
+  --ink: 10 11 13;
+  --mist: 185 192 198;
+  --dim: 125 133 140;
+  --bg: 18 18 21;
+  --glass: 20 24 29;
+  --surface-1: 31 37 42;
+  --surface-2: 40 44 47;
+  --surface-3: 48 57 61;
+  --line: 64 68 72;
+  --keycap-empty: 114 120 120;
+
+  --from: 10 11 13;
+  --to: 20 24 29;
+
+  --money: 0 248 184;
+  --yellow: 240 200 80;
+  --pink: 218 67 114;
+  --red: 216 56 56;
+  --navy: 22 24 66;
+  --sky: 169 213 250;
+
+  --ok: 84 192 126;
+  --warn: 240 200 80;
+  --err: 216 56 56;
+  --info: 169 213 250;
+  --gold: 240 174 48;
+
+  --ease-out: cubic-bezier(.22, 1, .36, 1);
+  --ease-in: cubic-bezier(.55, 0, 1, .45);
+  --ease-in-out: cubic-bezier(.65, 0, .35, 1);
+  --dur-1: 120ms;
+  --dur-2: 200ms;
+  --dur-3: 320ms;
+  --dur-4: 480ms;
+  --stagger: 40ms;
+}
+
+:root.grayscale {
+  --main: 255 255 255; --mainText: 10 11 13; --mainLight: 255 255 255; --mainHover: 204 204 204; --mainDeep: 153 153 153;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  :root { --dur-2: 1ms; --dur-3: 1ms; --dur-4: 1ms; --stagger: 0ms; }
+}
+
+/* Escala da raiz (§10), ajustada para janela de desktop em vez de tela cheia do jogo. */
+:root { font-size: 14px; }
+@media (min-width: 1366px) and (min-height: 760px) { :root { font-size: 15px; } }
+@media (min-width: 1680px) and (min-height: 900px) { :root { font-size: 16px; } }
+
+@layer base {
+  * { outline: 2px solid transparent; outline-offset: 2px; user-select: none; }
+  input { user-select: text; }
+  html, body, #root { width: 100%; height: 100%; overflow: hidden; }
+  body {
+    color: rgb(var(--paper));
+    background: rgb(var(--from));
+    font-family: 'Inter Variable', Inter, sans-serif;
+    -webkit-font-smoothing: antialiased;
+  }
+  *, *::before, *::after { font-synthesis: none; }
+  .font-display, .font-display * { font-style: normal !important; }
+  ::selection { background: rgb(var(--paper)); color: rgb(var(--ink)); }
+}
+
+@layer components {
+  /* Botões (§6.1) */
+  .btn {
+    @apply inline-flex items-center justify-center gap-2 px-5 py-2.5 font-display font-extrabold uppercase text-sm
+           tracking-[0.02em] cursor-pointer whitespace-nowrap;
+    transition: filter var(--dur-1) var(--ease-out), transform var(--dur-2) var(--ease-out), opacity var(--dur-1);
+  }
+  .btn:hover:not(:disabled) { filter: brightness(1.1); }
+  .btn:active:not(:disabled) { transform: scale(.98); transition-duration: var(--dur-1); }
+  .btn:disabled { @apply opacity-40 cursor-not-allowed; }
+  .btn-primary { @apply bg-paper text-ink; }
+  .btn-focus { @apply bg-main text-mainText; }
+  .btn-secondary { @apply bg-surface-2 text-paper; }
+  .btn-outline { @apply border border-line text-mist bg-transparent; }
+  .btn-danger { @apply outline outline-1 outline-err -outline-offset-1 text-err bg-transparent; }
+  .btn-sm { @apply px-3 py-1.5 text-xs; }
+
+  /* Input A (§6.6) */
+  .input {
+    @apply w-full bg-glass/82 border border-paper/10 h-9 px-3 text-sm text-paper placeholder:text-paper/45;
+    transition: border-color var(--dur-2) var(--ease-out);
+  }
+  .input:focus { @apply border-main; }
+  .input.is-error { @apply border-err; }
+
+  /* Título de seção (§7) */
+  .section-title { @apply font-display font-extrabold text-base uppercase tracking-[0.02em] text-paper; }
+
+  /* Tecla (§5.2) */
+  .keycap {
+    @apply inline-flex items-center justify-center min-w-[1.5rem] h-6 px-1.5 rounded-[0.1875rem]
+           bg-paper text-ink font-display font-extrabold text-sm uppercase;
+  }
+
+  /* Ícone em quadrado (§5.1) */
+  .icon-sq { @apply shrink-0 grid place-items-center bg-glass/85 border border-paper/15 text-paper; }
+
+  /* Tag sólida (§6.5) */
+  .tag { @apply inline-flex items-center h-4 px-1.5 text-[0.625rem] font-display font-bold uppercase tracking-[0.04em]; }
+
+  /* Scrollbar A (§6.11) */
+  .scroll { @apply overflow-y-auto pr-3; }
+  .scroll::-webkit-scrollbar { width: 0.1875rem; }
+  .scroll::-webkit-scrollbar-track { background: rgb(var(--paper) / .08); }
+  .scroll::-webkit-scrollbar-thumb { background: rgb(var(--paper)); }
+}
+
+/* Movimento (§11.3): só transform e opacity; sem bounce. */
+@keyframes screen-in { from { opacity: 0; } }
+@keyframes title-in { from { opacity: 0; transform: translateX(-1rem); } }
+@keyframes bar-in { from { transform: scaleX(0); } }
+@keyframes rise-in { from { opacity: 0; transform: translateY(1rem); } }
+@keyframes item-in { from { opacity: 0; transform: translateY(.5rem); } }
+@keyframes hints-in { from { transform: translateY(100%); opacity: 0; } }
+@keyframes toast-in { from { opacity: 0; transform: translateY(.5rem); } }
+
+.anim-screen { animation: screen-in var(--dur-4) var(--ease-out) both; }
+.anim-title { animation: title-in var(--dur-4) var(--ease-out) 40ms both; }
+.anim-bar { transform-origin: left; animation: bar-in var(--dur-3) var(--ease-out) 120ms both; }
+.anim-rise { animation: rise-in var(--dur-3) var(--ease-out) both; animation-delay: calc(80ms + min(var(--i, 0), 8) * var(--stagger)); }
+.anim-item { animation: item-in var(--dur-3) var(--ease-out) both; animation-delay: calc(min(var(--i, 0), 8) * var(--stagger)); }
+.anim-hints { animation: hints-in var(--dur-3) var(--ease-out) 160ms both; }
+.anim-toast { animation: toast-in var(--dur-3) var(--ease-out) both; }
+
+.slide-indicator { transition: transform var(--dur-2) var(--ease-out), opacity var(--dur-2) var(--ease-out); }
+
+/* Console Formatter: ANSI 5 (piscando) no preview */
+@keyframes console-blink { 50% { opacity: 0; } }
+.console-blink { animation: console-blink 1s steps(1) infinite; }
+@media (prefers-reduced-motion: reduce) { .console-blink { animation: none; } }
