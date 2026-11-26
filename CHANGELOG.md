@@ -1,6 +1,6 @@
 # Changelog
 
-Todas as mudanças do RISE Tools. Downloads em [Releases](https://github.com/RiseConcept/tools-kit/releases).
+Todas as mudanças do RISE Tools. Downloads em [Releases](https://github.com/RiseConcept/rise-tools/releases).
 
 ## [1.0.0] - 2026-11-25
 

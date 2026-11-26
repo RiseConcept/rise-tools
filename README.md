@@ -10,14 +10,14 @@
 </p>
 
 <p align="center">
-  <a href="https://github.com/RiseConcept/tools-kit/releases/latest"><b>⬇ Baixar a última versão</b></a>
+  <a href="https://github.com/RiseConcept/rise-tools/releases/latest"><b>⬇ Baixar a última versão</b></a>
 </p>
 
 ![Tela inicial](docs/screenshots/inicio.png)
 
 ## Download e instalação
 
-1. Abra a [página de releases](https://github.com/RiseConcept/tools-kit/releases/latest).
+1. Abra a [página de releases](https://github.com/RiseConcept/rise-tools/releases/latest).
 2. Baixe uma das opções:
    - **`RISE-Tools_x.y.z_x64-setup.exe`**: instalador (recomendado). Cria atalho no menu Iniciar.
    - **`RISE-Tools_x.y.z_x64.msi`**: o mesmo, em formato MSI.
